@@ -5,6 +5,10 @@ export class InMemoryBikeRepository implements BikeRepository {
   private bikes: Bike[] = [];
   private currentId = 1;
 
+  async findById(id: number): Promise<Bike> {
+    return this.bikes.find((bike) => bike.id === id);
+  }
+
   async list(candidateId: number): Promise<Bike[]> {
     return this.bikes.filter((bike) => bike.candidateId === candidateId);
   }
