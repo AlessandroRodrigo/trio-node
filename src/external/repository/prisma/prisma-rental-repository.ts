@@ -23,6 +23,9 @@ export class PrismaRentalRepository implements RentalRepository {
         userId: rental.userId,
         start: rental.start,
         end: rental.end,
+        fees: rental.fee,
+        subtotal: rental.subtotal,
+        total: rental.total,
       },
     });
   }
