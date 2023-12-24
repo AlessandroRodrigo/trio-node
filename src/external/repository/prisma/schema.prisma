@@ -19,6 +19,7 @@ model Bike {
   ratings     Float
   imageUrls   ImageUrl[]
   candidate   Candidate  @relation(fields: [candidateId], references: [id])
+  Rental      Rental[]
 
   @@id([id, candidateId])
 }
@@ -39,6 +40,7 @@ model User {
   email       String    @unique
   password    String
   candidate   Candidate @relation(fields: [candidateId], references: [id])
+  Rental      Rental[]
 
   @@id([id, candidateId])
 }
@@ -50,4 +52,16 @@ model Candidate {
   token String @unique
   users User[]
   bikes Bike[]
+}
+
+model Rental {
+  id     Int      @unique @default(autoincrement())
+  userId Int
+  bikeId Int
+  start  DateTime
+  end    DateTime
+  user   User     @relation(fields: [userId], references: [id])
+  bike   Bike     @relation(fields: [bikeId], references: [id])
+
+  @@id([id, userId, bikeId])
 }
