@@ -55,13 +55,16 @@ model Candidate {
 }
 
 model Rental {
-  id     Int      @unique @default(autoincrement())
-  userId Int
-  bikeId Int
-  start  DateTime
-  end    DateTime
-  user   User     @relation(fields: [userId], references: [id])
-  bike   Bike     @relation(fields: [bikeId], references: [id])
+  id       Int      @unique @default(autoincrement())
+  userId   Int
+  bikeId   Int
+  start    DateTime
+  end      DateTime
+  subtotal Float
+  fees     Float
+  total    Float
+  user     User     @relation(fields: [userId], references: [id])
+  bike     Bike     @relation(fields: [bikeId], references: [id])
 
   @@id([id, userId, bikeId])
 }
