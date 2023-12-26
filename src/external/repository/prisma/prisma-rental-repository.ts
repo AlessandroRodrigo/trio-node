@@ -3,15 +3,10 @@ import { Rental } from '@/usecases/datatypes/rental';
 import { RentalRepository } from '@/usecases/ports/rental-repository';
 
 export class PrismaRentalRepository implements RentalRepository {
-  async findByDate(date: Date): Promise<Rental> {
+  async findByBikeId(bikeId: number): Promise<Rental> {
     return await prismaClient.rental.findFirst({
       where: {
-        start: {
-          gte: date,
-        },
-        end: {
-          lte: date,
-        },
+        bikeId: bikeId,
       },
     });
   }
