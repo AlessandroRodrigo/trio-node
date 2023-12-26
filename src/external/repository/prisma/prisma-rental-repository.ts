@@ -20,7 +20,7 @@ export class PrismaRentalRepository implements RentalRepository {
     return prismaClient.rental.create({
       data: {
         bikeId: rental.bikeId,
-        userId: rental.userId,
+        candidateId: rental.candidateId,
         start: rental.start,
         end: rental.end,
         fee: rental.fee,
