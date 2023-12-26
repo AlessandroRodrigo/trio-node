@@ -61,7 +61,7 @@ model Rental {
   start    DateTime
   end      DateTime
   subtotal Float
-  fees     Float
+  fee      Float
   total    Float
   user     User     @relation(fields: [userId], references: [id])
   bike     Bike     @relation(fields: [bikeId], references: [id])
