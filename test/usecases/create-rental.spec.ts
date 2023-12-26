@@ -13,7 +13,7 @@ describe('Create rental use case', () => {
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
     const rentalRepository = new InMemoryRentalRepository();
-    const useCase = new CreateRental(rentalRepository, bikeRepository);
+    const useCase = new CreateRental(rentalRepository, bikeRepository, candidateRepository);
 
     const addedCandidate = new CandidateBuilder().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -30,7 +30,7 @@ describe('Create rental use case', () => {
       bikeRepository.add({ id: 2, candidateId: candidate.id, ...differentBike }),
     ]);
     const rentalInfo = new RentalBuilder().withBikeId(bikesAdded[0].id).withUserId(user.id).build();
-    const rentalCreated = await useCase.perform(rentalInfo);
+    const rentalCreated = await useCase.perform(rentalInfo, candidate.token);
 
     expect(rentalCreated).toEqual({
       id: expect.any(Number),
