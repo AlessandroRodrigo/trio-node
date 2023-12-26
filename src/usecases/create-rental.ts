@@ -18,8 +18,10 @@ export class CreateRental implements UseCase {
     const candidate = await this.candidateRepository.findByToken(candidateToken);
     if (!candidate) throw new UnauthorizedError();
 
-    const rentalFound = await this.rentalRepository.findByDate(rental.start);
-    if (rentalFound) throw new ExistingRentalError();
+    const rentalFound = await this.rentalRepository.findByBikeId(rental.bikeId);
+    if (rentalFound) {
+      this.validateRentalConflict(rental, rentalFound);
+    }
 
     return this.rentalRepository.add({
       ...rental,
@@ -53,5 +55,19 @@ export class CreateRental implements UseCase {
     const subtotal = await this.calculateSubtotal(rental);
     const fee = await this.calculateFee(rental);
     return subtotal + fee;
+  }
+
+  private validateRentalConflict(rental: Rental, existingRental: Rental): void {
+    const rentalStart = new Date(rental.start);
+    const rentalEnd = new Date(rental.end);
+    const existingRentalStart = new Date(existingRental.start);
+    const existingRentalEnd = new Date(existingRental.end);
+
+    if (
+      (rentalStart >= existingRentalStart && rentalStart <= existingRentalEnd) ||
+      (rentalEnd >= existingRentalStart && rentalEnd <= existingRentalEnd)
+    ) {
+      throw new ExistingRentalError();
+    }
   }
 }
