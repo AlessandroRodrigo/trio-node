@@ -10,7 +10,7 @@ import { InMemoryCandidateRepository } from '@test/doubles/in-memory-candidate-r
 import { InMemoryRentalRepository } from '@test/doubles/in-memory-rental-repository';
 import { InMemoryUserRepository } from '@test/doubles/in-memory-user-repository';
 
-describe('List bikes controller', () => {
+describe('Create rental controller', () => {
   it('should return 201 and the created rental in the body', async () => {
     const candidateRepository = new InMemoryCandidateRepository();
     const bikeRepository = new InMemoryBikeRepository();
