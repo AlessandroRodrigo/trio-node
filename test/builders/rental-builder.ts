@@ -4,8 +4,8 @@ export class RentalBuilder {
   private rental: Rental = {
     bikeId: 0,
     userId: 0,
-    end: new Date(),
     start: new Date(),
+    end: new Date(new Date().setDate(new Date().getDate() + 5)),
     fee: 10,
     subtotal: 10,
     total: 10,
