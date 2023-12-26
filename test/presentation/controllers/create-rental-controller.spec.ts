@@ -1,9 +1,7 @@
 import { CreateRentalController } from '@/presentation/controllers/create-rental-controller';
-import { ListBikesController } from '@/presentation/controllers/list-bikes-controller';
 import { HttpRequest } from '@/presentation/controllers/ports/http-request';
 import { HttpResponse } from '@/presentation/controllers/ports/http-response';
 import { CreateRental } from '@/usecases/create-rental';
-import { ListBikes } from '@/usecases/list-bikes';
 import { BikeBuilder } from '@test/builders/bike-builder';
 import { CandidateBuilder } from '@test/builders/candidate-builder';
 import { ErrorThrowingUseCaseStub } from '@test/doubles/error-throwing-use-case-stub';
@@ -18,7 +16,7 @@ describe('List bikes controller', () => {
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
     const rentalRepository = new InMemoryRentalRepository();
-    const useCase = new CreateRental(rentalRepository, bikeRepository);
+    const useCase = new CreateRental(rentalRepository, bikeRepository, candidateRepository);
     const controller: CreateRentalController = new CreateRentalController(useCase);
 
     const addedCandidate = new CandidateBuilder().withToken().build();
@@ -80,8 +78,9 @@ describe('List bikes controller', () => {
   it('should return 401 if user is unauthorized', async () => {
     const bikeRepository = new InMemoryBikeRepository();
     const candidateRepository = new InMemoryCandidateRepository();
-    const useCase = new ListBikes(bikeRepository, candidateRepository);
-    const controller = new ListBikesController(useCase);
+    const rentalRepository = new InMemoryRentalRepository();
+    const useCase = new CreateRental(rentalRepository, bikeRepository, candidateRepository);
+    const controller = new CreateRentalController(useCase);
     const request: HttpRequest = {
       token: '123456',
       body: {},
