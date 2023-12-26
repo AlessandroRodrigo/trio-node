@@ -24,20 +24,17 @@ describe('Rental prisma repository', () => {
       candidateId: candidate.id,
       ...bikeInfo,
     });
-    const user = await userRepo.add({
-      candidateId: candidate.id,
-      name: 'any_name',
-      email: 'any_email',
-      password: 'any_password',
-    });
 
-    const rentalInfo = new RentalBuilder().withBikeId(bike.id).withUserId(user.id).build();
+    const rentalInfo = new RentalBuilder()
+      .withBikeId(bike.id)
+      .withCandidateId(candidate.id)
+      .build();
     const rental = await rentalRepo.add(rentalInfo);
 
     expect(rental).toEqual({
       id: expect.any(Number),
       bikeId: bike.id,
-      userId: user.id,
+      candidateId: candidate.id,
       start: rentalInfo.start,
       end: rentalInfo.end,
       fee: rentalInfo.fee,
