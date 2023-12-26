@@ -15,8 +15,19 @@ export class CreateRentalController implements Controller {
       };
     } catch (error) {
       const userUnauthorized = error.constructor.name === 'UnauthorizedError';
+      const existingRentalError = error.constructor.name === 'ExistingRentalError';
 
       if (userUnauthorized) {
+        return {
+          statusCode: error.httpStatus,
+          body: {
+            errorType: error.constructor.name,
+            message: error.message,
+          },
+        };
+      }
+
+      if (existingRentalError) {
         return {
           statusCode: error.httpStatus,
           body: {
