@@ -51,8 +51,6 @@ describe('List bikes controller', () => {
       },
     } as HttpRequest);
 
-    console.log(response);
-
     expect(response.statusCode).toEqual(201);
     expect(response.body).toEqual({
       id: 1,
