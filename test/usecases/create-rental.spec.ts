@@ -24,7 +24,6 @@ describe('Create rental use case', () => {
       password: 'any_password',
     });
     const bike = new BikeBuilder().build();
-    console.log('bike', bike);
     const differentBike = new BikeBuilder().different().build();
     const bikesAdded = await Promise.all([
       bikeRepository.add({ id: 1, candidateId: candidate.id, ...bike }),
@@ -32,8 +31,6 @@ describe('Create rental use case', () => {
     ]);
     const rentalInfo = new RentalBuilder().withBikeId(bikesAdded[0].id).withUserId(user.id).build();
     const rentalCreated = await useCase.perform(rentalInfo);
-
-    console.log(rentalCreated);
 
     expect(rentalCreated).toEqual({
       id: expect.any(Number),
