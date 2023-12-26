@@ -20,12 +20,6 @@ describe('Create rental controller', () => {
     const controller: CreateRentalController = new CreateRentalController(useCase);
 
     const addedCandidate = new CandidateBuilder().withToken().build();
-    const addedUser = await userRepository.add({
-      candidateId: addedCandidate.id,
-      email: 'any_email',
-      name: 'any_name',
-      password: 'any_password',
-    });
     const bikeInfo = new BikeBuilder().build();
     const candidate = await candidateRepository.add(addedCandidate);
     bikeRepository.add({
@@ -43,7 +37,7 @@ describe('Create rental controller', () => {
       token: candidate.token,
       body: {
         bikeId: 1,
-        userId: addedUser.id,
+        candidateId: candidate.id,
         start: new Date(),
         end: new Date(new Date().setDate(new Date().getDate() + 5)),
       },
@@ -53,7 +47,7 @@ describe('Create rental controller', () => {
     expect(response.body).toEqual({
       id: 1,
       bikeId: 1,
-      userId: addedUser.id,
+      candidateId: candidate.id,
       start: expect.any(Date),
       end: expect.any(Date),
       fee: 7.5,
