@@ -11,7 +11,7 @@ export class InMemoryRentalRepository implements RentalRepository {
     return newRental;
   }
 
-  async findByDate(date: Date): Promise<Rental> {
-    return this.rentals.find((rental) => rental.start === date);
+  async findByBikeId(bikeId: number): Promise<Rental> {
+    return this.rentals.find((rental) => rental.bikeId === bikeId);
   }
 }
