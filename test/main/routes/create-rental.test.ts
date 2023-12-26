@@ -14,18 +14,6 @@ describe('Create rental route', () => {
         token: 'a-token',
       },
     });
-    const userCreated = await prismaClient.user.create({
-      data: {
-        email: 'any_email',
-        name: 'any_name',
-        password: 'any_password',
-        candidate: {
-          connect: {
-            id: candidateCreated.id,
-          },
-        },
-      },
-    });
     const bikeInfo = new BikeBuilder().build();
     const bikeCreated = await prismaClient.bike.create({
       data: {
@@ -52,7 +40,7 @@ describe('Create rental route', () => {
       .set('authorization', 'a-token')
       .send({
         bikeId: bikeCreated.id,
-        userId: userCreated.id,
+        candidateId: candidateCreated.id,
         start: new Date(),
         end: new Date(new Date().setDate(new Date().getDate() + 5)),
       })
