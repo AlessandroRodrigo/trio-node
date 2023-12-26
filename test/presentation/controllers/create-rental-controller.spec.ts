@@ -66,7 +66,7 @@ describe('List bikes controller', () => {
 
   it('should return 500 if use case raises', async () => {
     const useCasestub = new ErrorThrowingUseCaseStub();
-    const controller = new ListBikesController(useCasestub);
+    const controller = new CreateRentalController(useCasestub);
     const request: HttpRequest = {
       token: '123456',
       body: {},
