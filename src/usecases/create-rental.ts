@@ -35,7 +35,10 @@ export class CreateRental implements UseCase {
 
     const { rate } = bikeFound;
 
-    const timeDiff = Math.abs(rental.end.getTime() - rental.start.getTime());
+    const parsedEnd = new Date(rental.end);
+    const parsedStart = new Date(rental.start);
+
+    const timeDiff = Math.abs(parsedEnd.getTime() - parsedStart.getTime());
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     return diffDays * rate;
