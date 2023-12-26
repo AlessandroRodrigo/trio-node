@@ -10,7 +10,6 @@ export class CreateCandidateController implements Controller {
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
       const candidate = request.body;
-      console.log(candidate);
       const newCandidate = await this.createCandidateUseCase.perform(candidate);
       await this.generateFakeDataUseCase.perform(newCandidate.id);
       return {
