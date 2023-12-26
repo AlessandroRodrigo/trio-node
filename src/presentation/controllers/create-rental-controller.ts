@@ -9,7 +9,7 @@ export class CreateRentalController implements Controller {
       const rental = request.body;
       const rentalCreated = await this.createRentalUseCase.perform(rental);
       return {
-        statusCode: 200,
+        statusCode: 201,
         body: rentalCreated,
       };
     } catch (error) {
