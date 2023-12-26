@@ -40,31 +40,31 @@ model User {
   email       String    @unique
   password    String
   candidate   Candidate @relation(fields: [candidateId], references: [id])
-  Rental      Rental[]
 
   @@id([id, candidateId])
 }
 
 model Candidate {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
-  token String @unique
-  users User[]
-  bikes Bike[]
+  id     Int      @id @default(autoincrement())
+  name   String
+  email  String   @unique
+  token  String   @unique
+  users  User[]
+  bikes  Bike[]
+  Rental Rental[]
 }
 
 model Rental {
-  id       Int      @unique @default(autoincrement())
-  userId   Int
-  bikeId   Int
-  start    DateTime
-  end      DateTime
-  subtotal Float
-  fee      Float
-  total    Float
-  user     User     @relation(fields: [userId], references: [id])
-  bike     Bike     @relation(fields: [bikeId], references: [id])
+  id          Int       @unique @default(autoincrement())
+  candidateId Int
+  bikeId      Int
+  start       DateTime
+  end         DateTime
+  subtotal    Float
+  fee         Float
+  total       Float
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  bike        Bike      @relation(fields: [bikeId], references: [id])
 
-  @@id([id, userId, bikeId])
+  @@id([id, candidateId, bikeId])
 }
