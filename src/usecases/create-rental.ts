@@ -8,6 +8,8 @@ import { RentalRepository } from '@/usecases/ports/rental-repository';
 import { UseCase } from '@/usecases/ports/use-case';
 
 export class CreateRental implements UseCase {
+  private readonly DEFAULT_FEE = 0.15;
+
   constructor(
     private readonly rentalRepository: RentalRepository,
     private readonly bikeRepository: BikeRepository,
@@ -48,7 +50,7 @@ export class CreateRental implements UseCase {
 
   private async calculateFee(rental: Rental): Promise<number> {
     const subtotal = await this.calculateSubtotal(rental);
-    return subtotal * 0.15;
+    return subtotal * this.DEFAULT_FEE;
   }
 
   private async calculateTotal(rental: Rental): Promise<number> {
