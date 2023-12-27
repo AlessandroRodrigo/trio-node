@@ -7,7 +7,7 @@ import { InMemoryCandidateRepository } from '@test/doubles/in-memory-candidate-r
 import { InMemoryRentalRepository } from '@test/doubles/in-memory-rental-repository';
 
 describe('Create rental use case', () => {
-  it.only('should create a rental given the dates', async () => {
+  it('should create a rental given the dates', async () => {
     const candidateRepository = new InMemoryCandidateRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentalRepository = new InMemoryRentalRepository();
